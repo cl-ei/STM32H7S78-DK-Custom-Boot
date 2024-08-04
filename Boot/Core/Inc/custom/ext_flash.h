@@ -84,8 +84,8 @@ void ConfigApMem() {
 	BSP_XSPI_RAM_Cfg_t ramInit;
 
 	ramInit.LatencyType = APS256XX_MR0_LATENCY_TYPE;
-	ramInit.ReadLatencyCode = APS256XX_MR0_RLC_3;
-	ramInit.WriteLatencyCode = APS256XX_MR4_WLC_3;
+	ramInit.ReadLatencyCode = APS256XX_MR0_RLC_6;
+	ramInit.WriteLatencyCode = APS256XX_MR4_WLC_6;
 	ramInit.IOMode = APS256XX_MR8_X8_X16;
 
 	int32_t state = BSP_XSPI_RAM_Init(0, &ramInit);
