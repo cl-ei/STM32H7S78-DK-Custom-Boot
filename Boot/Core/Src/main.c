@@ -43,9 +43,6 @@
 
 UART_HandleTypeDef huart4;
 
-XSPI_HandleTypeDef hxspi1;
-XSPI_HandleTypeDef hxspi2;
-
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -53,10 +50,7 @@ XSPI_HandleTypeDef hxspi2;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_SBS_Init(void);
-static void MX_XSPI2_Init(void);
 static void MX_UART4_Init(void);
-static void MX_XSPI1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -95,17 +89,14 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_SBS_Init();
-//  MX_XSPI2_Init();
   MX_UART4_Init();
-//  MX_XSPI1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  print("enter main.");
+  print("Enter main.");
   GotoExtFlash();
   while (1)
   {
@@ -183,27 +174,6 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief SBS Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_SBS_Init(void)
-{
-
-  /* USER CODE BEGIN SBS_Init 0 */
-
-  /* USER CODE END SBS_Init 0 */
-
-  /* USER CODE BEGIN SBS_Init 1 */
-
-  /* USER CODE END SBS_Init 1 */
-  /* USER CODE BEGIN SBS_Init 2 */
-
-  /* USER CODE END SBS_Init 2 */
-
-}
-
-/**
   * @brief UART4 Initialization Function
   * @param None
   * @retval None
@@ -252,106 +222,6 @@ static void MX_UART4_Init(void)
 }
 
 /**
-  * @brief XSPI1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_XSPI1_Init(void)
-{
-
-  /* USER CODE BEGIN XSPI1_Init 0 */
-
-  /* USER CODE END XSPI1_Init 0 */
-
-  XSPIM_CfgTypeDef sXspiManagerCfg = {0};
-
-  /* USER CODE BEGIN XSPI1_Init 1 */
-
-  /* USER CODE END XSPI1_Init 1 */
-  /* XSPI1 parameter configuration*/
-  hxspi1.Instance = XSPI1;
-  hxspi1.Init.FifoThresholdByte = 1;
-  hxspi1.Init.MemoryMode = HAL_XSPI_SINGLE_MEM;
-  hxspi1.Init.MemoryType = HAL_XSPI_MEMTYPE_MICRON;
-  hxspi1.Init.MemorySize = HAL_XSPI_SIZE_16B;
-  hxspi1.Init.ChipSelectHighTimeCycle = 1;
-  hxspi1.Init.FreeRunningClock = HAL_XSPI_FREERUNCLK_DISABLE;
-  hxspi1.Init.ClockMode = HAL_XSPI_CLOCK_MODE_0;
-  hxspi1.Init.WrapSize = HAL_XSPI_WRAP_NOT_SUPPORTED;
-  hxspi1.Init.ClockPrescaler = 0;
-  hxspi1.Init.SampleShifting = HAL_XSPI_SAMPLE_SHIFT_NONE;
-  hxspi1.Init.DelayHoldQuarterCycle = HAL_XSPI_DHQC_DISABLE;
-  hxspi1.Init.ChipSelectBoundary = HAL_XSPI_BONDARYOF_NONE;
-  hxspi1.Init.MaxTran = 0;
-  hxspi1.Init.Refresh = 0;
-  hxspi1.Init.MemorySelect = HAL_XSPI_CSSEL_NCS1;
-  if (HAL_XSPI_Init(&hxspi1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sXspiManagerCfg.nCSOverride = HAL_XSPI_CSSEL_OVR_DISABLED;
-  sXspiManagerCfg.IOPort = HAL_XSPIM_IOPORT_2;
-  if (HAL_XSPIM_Config(&hxspi1, &sXspiManagerCfg, HAL_XSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN XSPI1_Init 2 */
-
-  /* USER CODE END XSPI1_Init 2 */
-
-}
-
-/**
-  * @brief XSPI2 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_XSPI2_Init(void)
-{
-
-  /* USER CODE BEGIN XSPI2_Init 0 */
-
-  /* USER CODE END XSPI2_Init 0 */
-
-  XSPIM_CfgTypeDef sXspiManagerCfg = {0};
-
-  /* USER CODE BEGIN XSPI2_Init 1 */
-
-  /* USER CODE END XSPI2_Init 1 */
-  /* XSPI2 parameter configuration*/
-  hxspi2.Instance = XSPI2;
-  hxspi2.Init.FifoThresholdByte = 1;
-  hxspi2.Init.MemoryMode = HAL_XSPI_SINGLE_MEM;
-  hxspi2.Init.MemoryType = HAL_XSPI_MEMTYPE_MICRON;
-  hxspi2.Init.MemorySize = HAL_XSPI_SIZE_16B;
-  hxspi2.Init.ChipSelectHighTimeCycle = 1;
-  hxspi2.Init.FreeRunningClock = HAL_XSPI_FREERUNCLK_DISABLE;
-  hxspi2.Init.ClockMode = HAL_XSPI_CLOCK_MODE_0;
-  hxspi2.Init.WrapSize = HAL_XSPI_WRAP_NOT_SUPPORTED;
-  hxspi2.Init.ClockPrescaler = 0;
-  hxspi2.Init.SampleShifting = HAL_XSPI_SAMPLE_SHIFT_NONE;
-  hxspi2.Init.DelayHoldQuarterCycle = HAL_XSPI_DHQC_DISABLE;
-  hxspi2.Init.ChipSelectBoundary = HAL_XSPI_BONDARYOF_NONE;
-  hxspi2.Init.MaxTran = 0;
-  hxspi2.Init.Refresh = 0;
-  hxspi2.Init.MemorySelect = HAL_XSPI_CSSEL_NCS1;
-  if (HAL_XSPI_Init(&hxspi2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sXspiManagerCfg.nCSOverride = HAL_XSPI_CSSEL_OVR_DISABLED;
-  sXspiManagerCfg.IOPort = HAL_XSPIM_IOPORT_1;
-  if (HAL_XSPIM_Config(&hxspi2, &sXspiManagerCfg, HAL_XSPI_TIMEOUT_DEFAULT_VALUE) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN XSPI2_Init 2 */
-
-  /* USER CODE END XSPI2_Init 2 */
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -363,10 +233,69 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOG_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPION_CLK_ENABLE();
   __HAL_RCC_GPIOO_CLK_ENABLE();
   __HAL_RCC_GPIOP_CLK_ENABLE();
+
+  /*Configure GPIO pin : LCD_RGB_R2_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_R2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF11_LTDC;
+  HAL_GPIO_Init(LCD_RGB_R2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_R7_Pin LCD_HSYNC_Pin LCD_RGB_R6_Pin LCD_RGB_B1_Pin
+                           LCD_CLK_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_R7_Pin|LCD_HSYNC_Pin|LCD_RGB_R6_Pin|LCD_RGB_B1_Pin
+                          |LCD_CLK_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF13_LTDC;
+  HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_R4_Pin LCD_RGB_R3_Pin LCD_RGB_G5_Pin LCD_DE_Pin
+                           LCD_RGB_G6_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_R4_Pin|LCD_RGB_R3_Pin|LCD_RGB_G5_Pin|LCD_DE_Pin
+                          |LCD_RGB_G6_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF13_LTDC;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : LCD_VSYNC_Pin */
+  GPIO_InitStruct.Pin = LCD_VSYNC_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF11_LTDC;
+  HAL_GPIO_Init(LCD_VSYNC_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_B2_Pin LCD_RGB_B3_Pin LCD_RGB_B6_Pin LCD_RGB_R5_Pin
+                           LCD_RGB_G3_Pin LCD_RGB_G2_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_B2_Pin|LCD_RGB_B3_Pin|LCD_RGB_B6_Pin|LCD_RGB_R5_Pin
+                          |LCD_RGB_G3_Pin|LCD_RGB_G2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF13_LTDC;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_B5_Pin LCD_RGB_B4_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_B5_Pin|LCD_RGB_B4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : OCTOSPI_DQS_Pin OCTOSPI_IO7_Pin OCTOSPI_IO6_Pin OCTOSPI_IO5_Pin
                            OCTOSPI_IO4_Pin OCTOSPI_IO2_Pin OCTOSPI_IO3_Pin */
@@ -377,6 +306,22 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF9_XSPIM_P2;
   HAL_GPIO_Init(GPION, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_G0_Pin LCD_RGB_R0_Pin LCD_RGB_G1_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_G0_Pin|LCD_RGB_R0_Pin|LCD_RGB_G1_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF13_LTDC;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_R1_Pin LCD_RGB_B0_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_R1_Pin|LCD_RGB_B0_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF14_LTDC;
+  HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
 
   /*Configure GPIO pins : HEXASPI_DQS1_Pin HEXASPI_DQS0_Pin */
   GPIO_InitStruct.Pin = HEXASPI_DQS1_Pin|HEXASPI_DQS0_Pin;
@@ -399,6 +344,22 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
   GPIO_InitStruct.Alternate = GPIO_AF9_XSPIM_P1;
   HAL_GPIO_Init(GPIOP, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : LCD_RGB_G7_Pin LCD_RGB_G4_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_G7_Pin|LCD_RGB_G4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF10_LTDC;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : LCD_RGB_B7_Pin */
+  GPIO_InitStruct.Pin = LCD_RGB_B7_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Alternate = GPIO_AF12_LTDC;
+  HAL_GPIO_Init(LCD_RGB_B7_GPIO_Port, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

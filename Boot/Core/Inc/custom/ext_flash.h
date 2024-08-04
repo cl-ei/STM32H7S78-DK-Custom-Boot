@@ -90,16 +90,16 @@ void ConfigApMem() {
 
 	int32_t state = BSP_XSPI_RAM_Init(0, &ramInit);
 	if (state != HAL_OK) {
-		print("ram init failed. %d", state);
+		print("Ram init failed. %d", state);
 		GreenLedBlink();
 	}
 
 	state = BSP_XSPI_RAM_EnableMemoryMappedMode(0);
 	if (state != HAL_OK) {
-		print("ram enter mem mapped mode failed. %d", state);
+		print("Ram enter mem mapped mode failed. %d", state);
 		GreenLedBlink();
 	}
-	print("Ap memory conf successfull! XSPI1_BASE: %x", XSPI1_BASE);
+	print("Ram init succ. XSPI1_BASE: %x", XSPI1_BASE);
 
 // #define TEST_MEM
 #ifdef TEST_MEM
@@ -124,7 +124,7 @@ void ConfigApMem() {
 			print("ok: %x", addr);
 		}
 	}
-	print("ram test complete, err: %d", err_cnt);
+	print("Ram test complete, err: %d", err_cnt);
 #endif
 }
 
@@ -145,8 +145,10 @@ void GotoExtFlash() {
 		GreenLedBlink();
 	}
 
+	print("Deinit uart and jump...");
 	HAL_UART_DeInit(&huart4);
 	JumpToApp();
+
 	GreenLedBlink();
 }
 

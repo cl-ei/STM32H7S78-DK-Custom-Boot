@@ -27,10 +27,12 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7rsxx_hal.h"
+#include "stm32h7rsxx_hal_dma2d.h"
+#include "stm32h7rsxx_hal_lptim.h"
 
 // user custom configure
 #define USE_RAM_MEMORY_APS256XX 1
-
+#define DATA_IN_ExtRAM
 // end
 
 
